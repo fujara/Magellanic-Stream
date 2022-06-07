@@ -11,6 +11,8 @@ import os
 
 
 
+
+
 def maketable(dir): #creates an ASCI table containing file_names, filter, tile, dither, zp, FWHM, MJD-OBS, EXPTIME, NCHIP
     file_names = os.listdir(dir) #creates list with file names
     RA = [] #RA in primary
@@ -49,7 +51,16 @@ def maketable(dir): #creates an ASCI table containing file_names, filter, tile, 
     df = pd.DataFrame(columns=  col, data = dat.transpose() )
     t2 = Table.from_pandas(df)
     ascii.write(t2, 'table.dat', overwrite=True)
+
+
+def test(dir): #given a dir it will just create an ascii table with the file_names
     
+    file_names = os.listdir(dir) #creates list with file names
+    df = pd.DataFrame( )
+    df['file_names'] = file_names
+    t2 = Table.from_pandas(df)
+    tab_dir = '/home/mcavieres/MS/Magellanic-Stream/tables'
+    ascii.write(t2, f'{tab_dir}/table_test.dat', overwrite=True)
 
 if __name__ == '__main__':
     globals()[sys.argv[1]](sys.argv[2])
